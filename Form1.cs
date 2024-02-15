@@ -15,28 +15,43 @@ namespace ZT411
 {
     public partial class Form1 : Form
     {
+        private string _ipAdress;
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void SendZplOverTcp(string ipAdress)
+        private void SendZplOverTcp()
         {
-            Connection conn = new TcpConnection(ipAdress, TcpConnection.DEFAULT_ZPL_TCP_PORT);
-
-            try
+            if (textBox1.Text == "" && textBox1.Text.Trim().Length <= 0)
             {
-                conn.Open();
-
-                string zplData = "^XA^FO20,20^A0N,25,25^FDЭто тест zpl.^FS^XZ";
-
-                conn.Write(Encoding.UTF8.GetBytes(zplData));
+                return;
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine(ex.Message);
+                Connection conn = new TcpConnection(_ipAdress, TcpConnection.DEFAULT_ZPL_TCP_PORT);
+                try
+                {
+                    conn.Open();
+
+                    string zplData = "^XA^FO20,20^A0N,25,25^FDЭто тест zpl.^FS^XZ";
+
+                    conn.Write(Encoding.UTF8.GetBytes(zplData));
+                    Console.WriteLine("Всё прошло");
+                    MessageBox.Show("Всё прошло");
+                }
+                catch (ConnectionException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Console.WriteLine(ex.Message);
+                }
+                finally { conn.Close(); }
             }
-            finally { conn.Close(); }
         }
-    }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SendZplOverTcp();
+        }
+    } 
 }
