@@ -19,11 +19,12 @@ namespace ZT411
         public Form1()
         {
             InitializeComponent();
+            textBox1.Text = "192.168.100.153";
         }
 
         private void SendZplOverTcp()
         {
-            _ipAdress = textBox1.Text;
+            _ipAdress = textBox1.Text; //192.168.100.153
             Connection conn = new TcpConnection(_ipAdress, 9100);
             try
             {
