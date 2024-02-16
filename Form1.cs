@@ -23,30 +23,24 @@ namespace ZT411
 
         private void SendZplOverTcp()
         {
-            if (textBox1.Text == "" && textBox1.Text.Trim().Length <= 0)
+            _ipAdress = textBox1.Text;
+            Connection conn = new TcpConnection(_ipAdress, 9100);
+            try
             {
-                return;
+                conn.Open();
+
+                string zplData = "^XA^FO20,20^A0N,25,25^FDЭто тест zpl.^FS^XZ";
+
+                conn.Write(Encoding.UTF8.GetBytes(zplData));
+                Console.WriteLine("Всё прошло");
+                MessageBox.Show("Всё прошло");
             }
-            else
+            catch (ConnectionException ex)
             {
-                Connection conn = new TcpConnection(_ipAdress, TcpConnection.DEFAULT_ZPL_TCP_PORT);
-                try
-                {
-                    conn.Open();
-
-                    string zplData = "^XA^FO20,20^A0N,25,25^FDЭто тест zpl.^FS^XZ";
-
-                    conn.Write(Encoding.UTF8.GetBytes(zplData));
-                    Console.WriteLine("Всё прошло");
-                    MessageBox.Show("Всё прошло");
-                }
-                catch (ConnectionException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    Console.WriteLine(ex.Message);
-                }
-                finally { conn.Close(); }
+                MessageBox.Show(ex.Message);
+                Console.WriteLine(ex.Message);
             }
+            finally { conn.Close(); }
         }
 
         private void button1_Click(object sender, EventArgs e)
