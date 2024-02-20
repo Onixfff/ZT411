@@ -16,6 +16,15 @@ namespace ZT411
     public partial class Form1 : Form
     {
         private string _ipAdress;
+        private string first = "250";
+        private string second = "250";
+        private string third = "600";
+        private string fourth = "600";
+        private string fifth = "32";
+        private string sixth = "0,14";
+        private string seventh = "I";
+        private string eighth = "48";
+
         public Form1()
         {
             InitializeComponent();
@@ -31,8 +40,18 @@ namespace ZT411
                 conn.Open();
 
                 string zplData = "^XA^FO20,20^A0N,25,25^FDЭто тест zpl.^FS^XZ";
+                string zplData2 = "^XA" + 
+                    $"^AA,1,10,10,2^FO152,290^FD{first}^FS" +
+                    $"^AA,1,10,10,2^FO152,290^FD{second}^FS" + 
+                    $"^AA,1,10,10,2^FO320,290^FD{third}^FS" +
+                    $"^AA,1,7,9,2^FO285,332^FD{fourth}^FS" +
+                    $"^AA,1,7,9,2^FO285,355^FD{fifth}^FS" +
+                    $"^AA,1,7,9,2^FO282,382^FD{sixth}^FS" +
+                    $"^AA,1,7,9,2^FO290,408^FD{seventh}^FS" +
+                    $"^AA,1,7,9,2^FO290,446^FD{eighth}^FS" +
+                    "^XZ";
 
-                conn.Write(Encoding.UTF8.GetBytes(zplData));
+                conn.Write(Encoding.UTF8.GetBytes(zplData2));
                 Console.WriteLine("Всё прошло");
                 MessageBox.Show("Всё прошло");
             }
