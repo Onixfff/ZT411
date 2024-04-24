@@ -51,7 +51,9 @@ namespace ZT411
                     $"^AA,1,7,9,2^FO290,446^FD{eighth}^FS" +
                     "^XZ";
 
-                conn.Write(Encoding.UTF8.GetBytes(zplData2));
+                string zplData3 = "^XA\r\n^AA,1,10,10,2^FO152,290^FD250^FS\r\n^AA,1,10,10,2^FO233,290^FD250^FS \r\n^AA,1,10,10,2^FO320,290^FD600^FS\r\n^AA,1,7,9,2^FO285,332^FD600^FS\r\n^AA,1,7,9,2^FO285,355^FD35^FS\r\n^AA,1,7,9,2^FO282,382^FD0,14^FS\r\n^AA,1,7,9,2^FO290,408^FDI^FS\r\n^AA,1,7,9,2^FO290,446^FD48^FS\r\n^XZ";
+
+                conn.Write(Encoding.UTF8.GetBytes(zplData3));
                 Console.WriteLine("Всё прошло");
                 MessageBox.Show("Всё прошло");
             }
